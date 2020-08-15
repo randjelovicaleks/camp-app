@@ -1,6 +1,8 @@
 package com.app.campapp.model;
 
 import com.app.campapp.enums.ActivityType;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -43,7 +45,8 @@ public class Campsite {
     @Column(name = "latitude", nullable = false)
     private double latitude;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ElementCollection(targetClass=ActivityType.class)
     @CollectionTable(name = "activity_type", joinColumns = @JoinColumn(name = "id"))
     @Enumerated(EnumType.STRING)
     private List<ActivityType> activities;
