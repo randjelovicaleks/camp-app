@@ -19,6 +19,9 @@ public class Camper extends User{
     @OneToMany(mappedBy = "camper", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    @OneToMany(mappedBy = "camper", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
+
     public Camper() {
     }
 
@@ -27,6 +30,7 @@ public class Camper extends User{
         this.userStatus = userStatus;
         this.favouriteCampsites = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.reservations = new ArrayList<>();
     }
 
     public UserStatus getUserStatus() {
@@ -53,5 +57,11 @@ public class Camper extends User{
         this.comments = comments;
     }
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
 
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 }

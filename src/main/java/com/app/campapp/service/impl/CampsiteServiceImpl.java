@@ -3,9 +3,13 @@ package com.app.campapp.service.impl;
 import com.app.campapp.dto.CampsiteDTO;
 import com.app.campapp.enums.ActivityType;
 import com.app.campapp.enums.ReservationType;
+import com.app.campapp.model.Camper;
 import com.app.campapp.model.Campsite;
 import com.app.campapp.model.Reservation;
+import com.app.campapp.repository.CamperCanRateRepository;
+import com.app.campapp.repository.CamperRepository;
 import com.app.campapp.repository.CampsiteRepository;
+import com.app.campapp.service.CamperCanRateService;
 import com.app.campapp.service.CampsiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,12 @@ public class CampsiteServiceImpl implements CampsiteService {
     @Autowired
     private CampsiteRepository campsiteRepository;
 
+    @Autowired
+    private CamperRepository camperRepository;
+
+    @Autowired
+    private CamperCanRateServiceImpl camperCanRateServiceImpl;
+
     @Override
     public List<CampsiteDTO> simpleSearch(LocalDate dateFrom, LocalDate dateTo, String nearestCity) {
         List<Campsite> campsites = campsiteRepository.simpleSerach(dateFrom, dateTo, nearestCity);
@@ -27,10 +37,6 @@ public class CampsiteServiceImpl implements CampsiteService {
         for (Campsite c : campsites) {
             int counter = 0;
             for (Reservation r : c.getReservations()) {
-                System.out.println("Date from: " + dateFrom);
-                System.out.println("Date to: " + dateTo);
-                System.out.println("Start date: " + r.getStartDate());
-                System.out.println("End date: " + r.getEndDate());
                 if (r.getReservationType().equals(ReservationType.ACCEPTED) || r.getReservationType().equals(ReservationType.PENDING)) {
                     if (r.getStartDate().isEqual(dateFrom) && r.getEndDate().isEqual(dateTo)) {
                         counter++;
@@ -84,7 +90,7 @@ public class CampsiteServiceImpl implements CampsiteService {
 
     @Override
     public List<CampsiteDTO> bestRatedCampsites() {
-        List<Campsite> top3BestRated = campsiteRepository.top3BestRated();
+        List<Campsite> top3BestRated = campsiteRepository.bestRatedCampsites();
         List<CampsiteDTO> campsiteDTOS = new ArrayList<>();
 
         for (Campsite c : top3BestRated) {
@@ -92,5 +98,34 @@ public class CampsiteServiceImpl implements CampsiteService {
         }
 
         return campsiteDTOS;
+    }
+
+    @Override
+    public CampsiteDTO addToFavourites(Long idCamper, Long idCampsite) {
+        Camper camper = camperRepository.getOne(idCamper);
+        Campsite campsite = campsiteRepository.getOne(idCampsite);
+
+        if (camper != null && campsite != null) {
+            camper.getFavouriteCampsites().add(campsite);
+        }
+
+        return new CampsiteDTO(campsite);
+    }
+
+    @Override
+    public boolean rateCampsite(Long campsiteId, Long camperId, double rating) {
+        Campsite campsite = campsiteRepository.getOne(campsiteId);
+
+        if (campsite != null) {
+            double newRating = (campsite.getRating() + rating) / 2;
+            campsite.setRating(newRating);
+
+            //promeniti da je kamper ocenio mesto za kampovanje
+            if (camperCanRateServiceImpl.changeCamperCanRate(camperId, campsiteId)) {
+                campsiteRepository.save(campsite);
+                return true;
+            }
+        }
+        return false;
     }
 }

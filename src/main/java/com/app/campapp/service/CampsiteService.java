@@ -11,4 +11,6 @@ public interface CampsiteService {
     List<CampsiteDTO> extendedSearch(LocalDate dateFrom, LocalDate dateTo, String nearestCity, boolean closeToMountain,
                                      boolean closeToRiver, double priceFrom, double priceTo, List<ActivityType> activities);
     List<CampsiteDTO> bestRatedCampsites();
+    CampsiteDTO addToFavourites(Long idCamper, Long idCampsite);
+    boolean rateCampsite(Long idCampsite, Long idCamper, double rate);
 }

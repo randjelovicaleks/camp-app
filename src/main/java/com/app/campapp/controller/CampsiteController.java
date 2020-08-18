@@ -39,4 +39,20 @@ public class CampsiteController {
     public ResponseEntity<List<CampsiteDTO>> bestRatedCampsites() {
         return new ResponseEntity<>(campsiteServiceImpl.bestRatedCampsites(), HttpStatus.OK);
     }
+
+    @PreAuthorize("hasRole('ROLE_CAMPER')")
+    @PutMapping(value = "/{idCampsite}/favourite/camper/{idCamper}")
+    public ResponseEntity<CampsiteDTO> addToFavourites(@PathVariable Long idCamper, @PathVariable Long idCampsite) {
+        return new ResponseEntity<>(campsiteServiceImpl.addToFavourites(idCamper, idCampsite), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_CAMPER')")
+    @PutMapping(value="/camper/{camperId}/campsite/{campsiteId}/{rating}")
+    public ResponseEntity<?> rating(@PathVariable Long camperId, @PathVariable Long campsiteId, @PathVariable double rating) {
+
+        if (campsiteServiceImpl.rateCampsite(campsiteId, camperId, rating)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

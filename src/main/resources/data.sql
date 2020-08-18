@@ -2,7 +2,7 @@ INSERT INTO user (type, enabled, name, surname, email, password) VALUES ('ADMIN'
 
 INSERT INTO user (type, enabled,  name, surname, email, password, user_status) VALUES ('CAMPER', true, 'Camper', 'Camper', 'camper@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE');
 
-INSERT INTO user (type, enabled,  name, surname, email, password, user_status) VALUES ('CATERER', true, 'Caterer', 'Caterer', 'caterer@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE');
+INSERT INTO user (type, enabled,  name, surname, email, password, user_status, number_of_reports) VALUES ('CATERER', true, 'Caterer', 'Caterer', 'caterer@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE', 0);
 
 INSERT INTO statistic (caterer_id) VALUES (3);
 

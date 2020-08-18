@@ -19,14 +19,18 @@ public class Caterer extends User{
     @OneToMany(mappedBy = "caterer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    @Column(name = "number_of_reports")
+    private int numberOfReports;
+
     public Caterer() {
     }
 
-    public Caterer(Long id, String name, String surname, String email, String password, UserStatus userStatus) {
+    public Caterer(Long id, String name, String surname, String email, String password, UserStatus userStatus, int numberOfReports) {
         super(id, name, surname, email, password);
         this.userStatus = userStatus;
         this.campsites = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.numberOfReports = numberOfReports;
     }
 
     public UserStatus getUserStatus() {
@@ -51,5 +55,13 @@ public class Caterer extends User{
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public int getNumberOfReports() {
+        return numberOfReports;
+    }
+
+    public void setNumberOfReports(int numberOfReports) {
+        this.numberOfReports = numberOfReports;
     }
 }
