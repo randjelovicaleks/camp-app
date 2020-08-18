@@ -1,5 +1,7 @@
 package com.app.campapp.model;
 
+import com.app.campapp.enums.ReservationType;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -22,15 +24,19 @@ public class Reservation {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Campsite campsite;
 
+    @Enumerated(EnumType.STRING)
+    private ReservationType reservationType;
+
     public Reservation() {
     }
 
-    public Reservation(Long id, LocalDate startDate, LocalDate endDate, Camper camper, Campsite campsite) {
+    public Reservation(Long id, LocalDate startDate, LocalDate endDate, Camper camper, Campsite campsite, ReservationType reservationType) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.camper = camper;
         this.campsite = campsite;
+        this.reservationType = reservationType;
     }
 
     public Long getId() {
@@ -71,5 +77,13 @@ public class Reservation {
 
     public void setCampsite(Campsite campsite) {
         this.campsite = campsite;
+    }
+
+    public ReservationType getReservationType() {
+        return reservationType;
+    }
+
+    public void setReservationType(ReservationType reservationType) {
+        this.reservationType = reservationType;
     }
 }

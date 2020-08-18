@@ -36,14 +36,20 @@ public class Campsite {
     @Column(name = "closing_date", nullable = false)
     private LocalDate closingDate;
 
-    @Column(name = "spots_number", nullable = false)
-    private int spotsNumber;
+    @Column(name = "tent_spots_number", nullable = false)
+    private int tentSpotsNumber;
 
     @Column(name = "longitude", nullable = false)
     private double longitude;
 
     @Column(name = "latitude", nullable = false)
     private double latitude;
+
+    @Column(name = "price_per_day", nullable = false)
+    private double pricePerDay;
+
+    @Column(name = "rating", nullable = false)
+    private double rating;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ElementCollection(targetClass=ActivityType.class)
@@ -136,12 +142,12 @@ public class Campsite {
         this.closingDate = closingDate;
     }
 
-    public int getSpotsNumber() {
-        return spotsNumber;
+    public int getTentSpotsNumber() {
+        return tentSpotsNumber;
     }
 
-    public void setSpotsNumber(int spotsNumber) {
-        this.spotsNumber = spotsNumber;
+    public void setTentSpotsNumber(int tentSpotsNumber) {
+        this.tentSpotsNumber = tentSpotsNumber;
     }
 
     public double getLongitude() {
@@ -158,6 +164,22 @@ public class Campsite {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public double getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public List<ActivityType> getActivities() {

@@ -12,6 +12,9 @@ public class RegistrationRequestDTO {
     private String email;
     private String password;
 
+    public RegistrationRequestDTO() {
+    }
+
     public RegistrationRequestDTO(RegistrationRequest registrationRequest) {
         this.id = registrationRequest.getId();
         this.userType = registrationRequest.getUserType();

@@ -1,0 +1,42 @@
+package com.app.campapp.controller;
+
+import com.app.campapp.dto.CampsiteDTO;
+import com.app.campapp.repository.CampsiteRepository;
+import com.app.campapp.service.impl.CampsiteServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@CrossOrigin
+@RequestMapping(value = "/campsite", produces = MediaType.APPLICATION_JSON_VALUE)
+public class CampsiteController {
+
+    @Autowired
+    private CampsiteServiceImpl campsiteServiceImpl;
+
+    @Autowired
+    private CampsiteRepository campsiteRepository;
+
+    @PreAuthorize("hasRole('ROLE_CATERER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_CAMPER')")
+    @GetMapping(value = "/{dateFromString}/{dateToString}/{nearestCity}")
+    public ResponseEntity<?> simpleSearch(@PathVariable String dateFromString, @PathVariable String dateToString,
+                                          @PathVariable String nearestCity) {
+        LocalDate dateFrom = LocalDate.parse(dateFromString);
+        LocalDate dateTo = LocalDate.parse(dateToString);
+
+        return new ResponseEntity<>(campsiteServiceImpl.simpleSearch(dateFrom, dateTo, nearestCity), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_CATERER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_CAMPER')")
+    @GetMapping(value = "/best/rated")
+    public ResponseEntity<List<CampsiteDTO>> bestRatedCampsites() {
+        return new ResponseEntity<>(campsiteServiceImpl.bestRatedCampsites(), HttpStatus.OK);
+    }
+}
