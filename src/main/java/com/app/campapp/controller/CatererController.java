@@ -1,6 +1,7 @@
 package com.app.campapp.controller;
 
 import com.app.campapp.dto.CatererDTO;
+import com.app.campapp.model.Caterer;
 import com.app.campapp.service.impl.CatererServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,28 @@ public class CatererController {
         if (!catererDTOS.isEmpty()) {
             return new ResponseEntity<>(catererDTOS, HttpStatus.OK);
         }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping(value = "/{id}/block")
+    public ResponseEntity<?> blockCaterer(@PathVariable Long id) {
+        if (catererServiceImpl.blockCaterer(id)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CAMPER')")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CatererDTO> getCaterer(@PathVariable Long id) {
+        Caterer caterer = catererServiceImpl.getCaterer(id);
+
+        if (caterer != null) {
+            return new ResponseEntity<>(new CatererDTO(caterer), HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

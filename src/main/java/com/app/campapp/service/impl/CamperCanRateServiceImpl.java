@@ -24,7 +24,7 @@ public class CamperCanRateServiceImpl implements CamperCanRateService {
 
         if (campsite != null) {
             LocalDate today = LocalDate.now();
-            CamperCanRate camperCanRate = camperCanRateRepository.findCampersCanRate(camperId, campsiteId, false, today);
+            CamperCanRate camperCanRate = camperCanRateRepository.findCamperCanRate(camperId, campsiteId, false, today);
 
             if(camperCanRate != null) {
                 return true;
@@ -35,7 +35,7 @@ public class CamperCanRateServiceImpl implements CamperCanRateService {
 
     public boolean changeCamperCanRate(Long camperId, Long campsiteId) {
         LocalDate today = LocalDate.now();
-        CamperCanRate camperCanRate = camperCanRateRepository.findCampersCanRate(camperId, campsiteId, false, today);
+        CamperCanRate camperCanRate = camperCanRateRepository.findCamperCanRate(camperId, campsiteId, false, today);
 
         if(camperCanRate != null) {
             camperCanRate.setRated(true);

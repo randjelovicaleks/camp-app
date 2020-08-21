@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class Comment {
+public class Reply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,26 +18,20 @@ public class Comment {
     private LocalDate date;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Camper camper;
+    private Caterer caterer;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Campsite campsite;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reply_id", referencedColumnName = "id")
-    private Reply reply;
-
-    public Comment() {
+    public Reply() {
     }
 
-    public Comment(Long id, String content, LocalDate date, Caterer caterer,
-                   Camper camper, Campsite campsite, Reply reply) {
+    public Reply(Long id, String content, LocalDate date, Caterer caterer, Campsite campsite) {
         this.id = id;
         this.content = content;
         this.date = date;
-        this.camper = camper;
+        this.caterer = caterer;
         this.campsite = campsite;
-        this.reply = reply;
     }
 
     public Long getId() {
@@ -64,12 +58,12 @@ public class Comment {
         this.date = date;
     }
 
-    public Camper getCamper() {
-        return camper;
+    public Caterer getCaterer() {
+        return caterer;
     }
 
-    public void setCamper(Camper camper) {
-        this.camper = camper;
+    public void setCaterer(Caterer caterer) {
+        this.caterer = caterer;
     }
 
     public Campsite getCampsite() {
@@ -78,13 +72,5 @@ public class Comment {
 
     public void setCampsite(Campsite campsite) {
         this.campsite = campsite;
-    }
-
-    public Reply getReply() {
-        return reply;
-    }
-
-    public void setReply(Reply reply) {
-        this.reply = reply;
     }
 }

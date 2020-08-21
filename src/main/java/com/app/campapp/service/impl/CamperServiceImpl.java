@@ -8,7 +8,6 @@ import com.app.campapp.repository.ReservationRepository;
 import com.app.campapp.service.CamperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -36,4 +35,19 @@ public class CamperServiceImpl implements CamperService {
         }
         return false;
     }
+
+    @Override
+    public boolean blockCamperWhoCanceledReservation(Long id) {
+        List<Reservation> reservations = reservationRepository.findCanceledReservations(id);
+        Camper camper = camperRepository.getOne(id);
+
+        if (reservations.size() >= 3) {
+            camper.setUserStatus(UserStatus.BLOCKED);
+            camper.setEnabled(false);
+            camperRepository.save(camper);
+            return true;
+        }
+        return false;
+    }
+
 }

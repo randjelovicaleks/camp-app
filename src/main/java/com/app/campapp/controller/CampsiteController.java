@@ -55,4 +55,18 @@ public class CampsiteController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @PreAuthorize("hasRole('ROLE_CAMPER')")
+    @DeleteMapping(value = "/{idCampsite}/favourite/camper/{idCamper}")
+    public ResponseEntity<?> removeFromFavourites(@PathVariable Long idCamper, @PathVariable Long idCampsite) {
+        campsiteServiceImpl.removeFromFavourites(idCamper, idCampsite);
+        return new ResponseEntity<>(HttpStatus.GONE);
+    }
+
+    @PreAuthorize("hasRole('ROLE_CAMPER')")
+    @DeleteMapping(value = "/{idCampsite}/sharing/camper/{idCamper}")
+    public ResponseEntity<?> removeFromSharingCampsites(@PathVariable Long idCamper, @PathVariable Long idCampsite) {
+        campsiteServiceImpl.removeFromSharingCampsites(idCamper, idCampsite);
+        return new ResponseEntity<>(HttpStatus.GONE);
+    }
 }

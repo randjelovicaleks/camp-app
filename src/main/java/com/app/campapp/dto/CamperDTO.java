@@ -1,29 +1,25 @@
 package com.app.campapp.dto;
 
 import com.app.campapp.enums.UserStatus;
-import com.app.campapp.model.Caterer;
+import com.app.campapp.model.Camper;
 
-public class CatererDTO {
+public class CamperDTO {
 
     private Long id;
     private String name;
     private String surname;
     private String email;
-    private String phoneNumber;
     private UserStatus userStatus;
-    private int numberOfReports;
 
-    public CatererDTO() {
+    public CamperDTO() {
     }
 
-    public CatererDTO(Caterer caterer) {
-        this.id = caterer.getId();
-        this.name = caterer.getName();
-        this.surname = caterer.getSurname();
-        this.email = caterer.getEmail();
-        this.phoneNumber = caterer.getPhoneNumber();
-        this.userStatus = caterer.getUserStatus();
-        this.numberOfReports = caterer.getNumberOfReports();
+    public CamperDTO(Camper camper) {
+        this.id = camper.getId();
+        this.name = camper.getName();
+        this.surname = camper.getSurname();
+        this.email = camper.getEmail();
+        this.userStatus = camper.getUserStatus();
     }
 
     public Long getId() {
@@ -58,27 +54,11 @@ public class CatererDTO {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public UserStatus getUserStatus() {
         return userStatus;
     }
 
     public void setUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
-    }
-
-    public int getNumberOfReports() {
-        return numberOfReports;
-    }
-
-    public void setNumberOfReports(int numberOfReports) {
-        this.numberOfReports = numberOfReports;
     }
 }

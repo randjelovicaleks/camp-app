@@ -1,6 +1,7 @@
 package com.app.campapp.service.impl;
 
 import com.app.campapp.dto.CatererDTO;
+import com.app.campapp.enums.UserStatus;
 import com.app.campapp.model.Caterer;
 import com.app.campapp.repository.CatererRepository;
 import com.app.campapp.repository.ReservationRepository;
@@ -42,6 +43,24 @@ public class CatererServiceImpl implements CatererService {
         }
 
         return catererDTOS;
+    }
+
+    //odraditi provere za rezervacije
+    @Override
+    public boolean blockCaterer(Long id) {
+        Caterer caterer = catererRepository.getOne(id);
+
+        if (caterer != null) {
+            caterer.setUserStatus(UserStatus.BLOCKED);
+            catererRepository.save(caterer);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Caterer getCaterer(Long id) {
+        return catererRepository.getOne(id);
     }
 
 }

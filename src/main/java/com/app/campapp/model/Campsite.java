@@ -75,6 +75,12 @@ public class Campsite {
             inverseJoinColumns = @JoinColumn(name = "camper_id", referencedColumnName = "id"))
     private List<Camper> campers;
 
+    @ManyToMany
+    @JoinTable(name = "sharing_campsites",
+            joinColumns = @JoinColumn(name = "campsite_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "camper_id", referencedColumnName = "id"))
+    private List<Camper> sharingCampsitesCampers;
+
     public Campsite() {
     }
 
@@ -228,5 +234,13 @@ public class Campsite {
 
     public void setCampers(List<Camper> campers) {
         this.campers = campers;
+    }
+
+    public List<Camper> getSharingCampsitesCampers() {
+        return sharingCampsitesCampers;
+    }
+
+    public void setSharingCampsitesCampers(List<Camper> sharingCampsitesCampers) {
+        this.sharingCampsitesCampers = sharingCampsitesCampers;
     }
 }
