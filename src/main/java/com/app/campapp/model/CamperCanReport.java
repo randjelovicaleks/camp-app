@@ -13,8 +13,11 @@ public class CamperCanReport {
     @Column(name="camper_id")
     private Long camperId;
 
-    @Column(name="campsite_id")
+    @Column(name="caterer_id")
     private Long catererId;
+
+    @Column(name="reported")
+    private boolean reported;
 
     @Column(name="reservation_end_date")
     private LocalDate reservationEndDate;
@@ -44,6 +47,14 @@ public class CamperCanReport {
 
     public void setCatererId(Long catererId) {
         this.catererId = catererId;
+    }
+
+    public boolean isReported() {
+        return reported;
+    }
+
+    public void setReported(boolean reported) {
+        this.reported = reported;
     }
 
     public LocalDate getReservationEndDate() {

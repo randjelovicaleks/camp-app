@@ -18,7 +18,7 @@ public class CamperCanCommentController {
 
     @PreAuthorize("hasRole('ROLE_CAMPER')")
     @GetMapping(value= "/camper/{camperId}/campsite/{campsiteId}")
-    public ResponseEntity<?> camperCanRate(@PathVariable Long camperId, @PathVariable Long campsiteId) {
+    public ResponseEntity<?> camperCanComment(@PathVariable Long camperId, @PathVariable Long campsiteId) {
         return new ResponseEntity<>(camperCanCommentServiceImpl.camperCanComment(camperId, campsiteId), HttpStatus.OK);
     }
 }

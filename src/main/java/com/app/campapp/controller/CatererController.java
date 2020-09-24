@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,11 +21,13 @@ public class CatererController {
     @Autowired
     private CatererServiceImpl catererServiceImpl;
 
-    @PreAuthorize("hasRole('ROLE_CAMPER')")
-    @PutMapping(value = "/{id}/report")
-    public ResponseEntity<?> reportCaterer(@PathVariable Long id) {
-        if (catererServiceImpl.reportCaterer(id)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CAMPER') or hasRole('ROLE_CATERER')")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CatererDTO> getCaterer(@PathVariable Long id) {
+        Caterer caterer = catererServiceImpl.getCaterer(id);
+
+        if (caterer != null) {
+            return new ResponseEntity<>(new CatererDTO(caterer), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -32,13 +35,36 @@ public class CatererController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public ResponseEntity<List<CatererDTO>> findAllCaterersWithReports(@PathVariable Long id) {
-        List<CatererDTO> catererDTOS = catererServiceImpl.findAllCaterersWithReports();
+    public ResponseEntity<List<CatererDTO>> getAllCaterers() {
+        List<Caterer> caterers = catererServiceImpl.getAllCaterers();
+        List<CatererDTO> catererDTOS = new ArrayList<>();
 
-        if (!catererDTOS.isEmpty()) {
-            return new ResponseEntity<>(catererDTOS, HttpStatus.OK);
+        for (Caterer c : caterers) {
+            catererDTOS.add(new CatererDTO(c));
+        }
+
+        return new ResponseEntity<>(catererDTOS, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_CAMPER')")
+    @PutMapping(value = "/{catererId}/camper/{camperId}/report")
+    public ResponseEntity<?> reportCaterer(@PathVariable Long catererId, @PathVariable Long camperId) {
+        if (catererServiceImpl.reportCaterer(catererId, camperId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/report")
+    public ResponseEntity<List<CatererDTO>> findAllCaterersWithReports() {
+        List<Caterer> caterers = catererServiceImpl.getCaterersWithReports();
+        List<CatererDTO> catererDTOS = new ArrayList<>();
+
+        for (Caterer c : caterers) {
+            catererDTOS.add(new CatererDTO(c));
+        }
+        return new ResponseEntity<>(catererDTOS, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -51,15 +77,10 @@ public class CatererController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CAMPER')")
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<CatererDTO> getCaterer(@PathVariable Long id) {
-        Caterer caterer = catererServiceImpl.getCaterer(id);
-
-        if (caterer != null) {
-            return new ResponseEntity<>(new CatererDTO(caterer), HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/notification")
+    public ResponseEntity<?> reportedCaterers() {
+        return new ResponseEntity<>(catererServiceImpl.reportedCaterers(), HttpStatus.OK);
     }
+
 }

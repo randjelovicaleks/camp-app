@@ -66,9 +66,6 @@ public class Campsite {
     @OneToMany(mappedBy = "campsite", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Statistic statistic;
-
     @ManyToMany
     @JoinTable(name = "favourite_campsites",
             joinColumns = @JoinColumn(name = "campsite_id", referencedColumnName = "id"),
@@ -80,6 +77,12 @@ public class Campsite {
             joinColumns = @JoinColumn(name = "campsite_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "camper_id", referencedColumnName = "id"))
     private List<Camper> sharingCampsitesCampers;
+
+    @Column(name = "visible", nullable = false)
+    private boolean visible;
+
+    @OneToMany(mappedBy = "campsite", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Image> images;
 
     public Campsite() {
     }
@@ -220,14 +223,6 @@ public class Campsite {
         this.comments = comments;
     }
 
-    public Statistic getStatistic() {
-        return statistic;
-    }
-
-    public void setStatistic(Statistic statistic) {
-        this.statistic = statistic;
-    }
-
     public List<Camper> getCampers() {
         return campers;
     }
@@ -242,5 +237,21 @@ public class Campsite {
 
     public void setSharingCampsitesCampers(List<Camper> sharingCampsitesCampers) {
         this.sharingCampsitesCampers = sharingCampsitesCampers;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }

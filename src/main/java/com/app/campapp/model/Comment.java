@@ -30,8 +30,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Long id, String content, LocalDate date, Caterer caterer,
-                   Camper camper, Campsite campsite, Reply reply) {
+    public Comment(Long id, String content, LocalDate date, Camper camper, Campsite campsite, Reply reply) {
         this.id = id;
         this.content = content;
         this.date = date;

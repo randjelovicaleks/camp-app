@@ -2,11 +2,16 @@ package com.app.campapp.dto;
 
 import com.app.campapp.model.Reply;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 public class ReplyDTO {
 
     private Long id;
+    @NotBlank(message="Content must not be empty.")
+    @Pattern(regexp="^[a-zA-Z0-9.,?! ]*$",
+            message="Content must contain only letters, digits and punctuation marks.")
     private String content;
     private LocalDate date;
     private CatererDTO catererDTO;

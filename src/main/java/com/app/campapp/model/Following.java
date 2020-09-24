@@ -9,24 +9,24 @@ public class Following {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "camper1", nullable = false)
-    private Long idCamper1;
+    @Column(name = "follower_id", nullable = false)
+    private Long followerId;
 
-    @Column(name = "camper2", nullable = false)
-    private Long idCamper2;
+    @Column(name = "followed_id", nullable = false)
+    private Long followedId;
 
     public Following() {
     }
 
-    public Following(Long idCamper1, Long idCamper2) {
-        this.idCamper1 = idCamper1;
-        this.idCamper2 = idCamper2;
+    public Following(Long followerId, Long followedId) {
+        this.followerId = followerId;
+        this.followedId = followedId;
     }
 
-    public Following(Long id, Long idCamper1, Long idCamper2) {
+    public Following(Long id, Long followerId, Long followedId) {
         this.id = id;
-        this.idCamper1 = idCamper1;
-        this.idCamper2 = idCamper2;
+        this.followerId = followerId;
+        this.followedId = followedId;
     }
 
     public Long getId() {
@@ -37,19 +37,19 @@ public class Following {
         this.id = id;
     }
 
-    public Long getIdCamper1() {
-        return idCamper1;
+    public Long getFollowerId() {
+        return followerId;
     }
 
-    public void setIdCamper1(Long idCamper1) {
-        this.idCamper1 = idCamper1;
+    public void setFollowerId(Long followerId) {
+        this.followerId = followerId;
     }
 
-    public Long getIdCamper2() {
-        return idCamper2;
+    public Long getFollowedId() {
+        return followedId;
     }
 
-    public void setIdCamper2(Long idCamper2) {
-        this.idCamper2 = idCamper2;
+    public void setFollowedId(Long followedId) {
+        this.followedId = followedId;
     }
 }

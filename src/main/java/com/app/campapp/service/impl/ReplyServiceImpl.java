@@ -13,6 +13,9 @@ import com.app.campapp.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Service
 public class ReplyServiceImpl implements ReplyService {
 
@@ -34,10 +37,10 @@ public class ReplyServiceImpl implements ReplyService {
         Caterer caterer = catererRepository.getOne(replyDTO.getCatererDTO().getId());
         Campsite campsite = campsiteRepository.getOne(replyDTO.getCampsiteDTO().getId());
 
-        if (comment != null) {
+        if (comment != null && caterer != null && campsite != null) {
             Reply reply = new Reply();
             reply.setContent(replyDTO.getContent());
-            reply.setDate(replyDTO.getDate());
+            reply.setDate(LocalDate.now());
             reply.setCaterer(caterer);
             reply.setCampsite(campsite);
             comment.setReply(reply);

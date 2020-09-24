@@ -1,11 +1,17 @@
 package com.app.campapp.dto;
 
 import com.app.campapp.model.Comment;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 public class CommentDTO {
 
     private Long id;
+    @NotBlank(message="Content must not be empty.")
+    @Pattern(regexp="^[a-zA-Z0-9.,?! ]*$",
+            message="Content must contain only letters, digits and punctuation marks.")
     private String content;
     private LocalDate date;
     private CamperDTO camperDTO;
@@ -21,7 +27,9 @@ public class CommentDTO {
         this.date = comment.getDate();
         this.camperDTO = new CamperDTO(comment.getCamper());
         this.campsiteDTO = new CampsiteDTO(comment.getCampsite());
-        this.replyDTO = new ReplyDTO(comment.getReply());
+        if (comment.getReply() != null) {
+            this.replyDTO = new ReplyDTO(comment.getReply());
+        }
     }
 
     public Long getId() {

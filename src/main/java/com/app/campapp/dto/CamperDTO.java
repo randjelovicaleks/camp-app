@@ -2,6 +2,10 @@ package com.app.campapp.dto;
 
 import com.app.campapp.enums.UserStatus;
 import com.app.campapp.model.Camper;
+import com.app.campapp.model.Campsite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CamperDTO {
 
@@ -10,6 +14,8 @@ public class CamperDTO {
     private String surname;
     private String email;
     private UserStatus userStatus;
+    private List<CampsiteDTO> sharedCampsites;
+    private List<CampsiteDTO> favouriteCampsites;
 
     public CamperDTO() {
     }
@@ -20,6 +26,18 @@ public class CamperDTO {
         this.surname = camper.getSurname();
         this.email = camper.getEmail();
         this.userStatus = camper.getUserStatus();
+        this.sharedCampsites = new ArrayList<>();
+        if(camper.getSharingCampsites() != null) {
+            for(Campsite c1: camper.getSharingCampsites()) {
+                this.sharedCampsites.add(new CampsiteDTO(c1));
+            }
+        }
+        this.favouriteCampsites = new ArrayList<>();
+        if(camper.getFavouriteCampsites() != null) {
+            for (Campsite c2 : camper.getFavouriteCampsites()) {
+                this.favouriteCampsites.add(new CampsiteDTO(c2));
+            }
+        }
     }
 
     public Long getId() {
@@ -60,5 +78,21 @@ public class CamperDTO {
 
     public void setUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public List<CampsiteDTO> getSharedCampsites() {
+        return sharedCampsites;
+    }
+
+    public void setSharedCampsites(List<CampsiteDTO> sharedCampsites) {
+        this.sharedCampsites = sharedCampsites;
+    }
+
+    public List<CampsiteDTO> getFavouriteCampsites() {
+        return favouriteCampsites;
+    }
+
+    public void setFavouriteCampsites(List<CampsiteDTO> favouriteCampsites) {
+        this.favouriteCampsites = favouriteCampsites;
     }
 }

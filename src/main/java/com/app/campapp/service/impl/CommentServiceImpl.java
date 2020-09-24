@@ -13,6 +13,7 @@ import com.app.campapp.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,17 +49,16 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean createComment(CommentDTO commentDTO) {
-        Campsite campsite = campsiteRepository.getOne(commentDTO.getCamperDTO().getId());
+        Campsite campsite = campsiteRepository.getOne(commentDTO.getCampsiteDTO().getId());
         Camper camper = camperRepository.getOne(commentDTO.getCamperDTO().getId());
-        Reply reply = replyRepository.getOne(commentDTO.getReplyDTO().getId());
 
-        if (campsite != null) {
+        if (campsite != null && camper != null) {
             Comment comment = new Comment();
             comment.setContent(commentDTO.getContent());
-            comment.setDate(commentDTO.getDate());
+            comment.setDate(LocalDate.now());
             comment.setCamper(camper);
             comment.setCampsite(campsite);
-            comment.setReply(reply);
+            //promeniti da je kamper komentarisao mesto
             if (camperCanCommentServiceImpl.changeCamperCanComment(camper.getId(), campsite.getId())) {
                 commentRepository.save(comment);
                 return true;

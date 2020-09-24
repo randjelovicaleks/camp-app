@@ -14,7 +14,7 @@ public class Reply {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "posting_date", nullable = false)
+    @Column(name = "posting_date")
     private LocalDate date;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

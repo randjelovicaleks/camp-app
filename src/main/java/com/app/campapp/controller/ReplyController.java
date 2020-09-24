@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/reply", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -18,9 +20,9 @@ public class ReplyController {
     private ReplyServiceImpl replyServiceImpl;
 
     @PreAuthorize("hasRole('ROLE_CATERER')")
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createReply(@PathVariable Long idCampsite, @RequestBody ReplyDTO replyDTO) {
-        if (replyServiceImpl.createReply(idCampsite, replyDTO)) {
+    @PostMapping(value = "/comment/{idComment}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createReply(@PathVariable Long idComment, @Valid @RequestBody ReplyDTO replyDTO) {
+        if (replyServiceImpl.createReply(idComment, replyDTO)) {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

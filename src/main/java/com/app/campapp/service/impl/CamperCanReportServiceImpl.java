@@ -27,11 +27,23 @@ public class CamperCanReportServiceImpl implements CamperCanReportService {
 
         if (caterer != null) {
             LocalDate today = LocalDate.now();
-            CamperCanReport camperCanReport = camperCanReportRepository.findCamperCanReport(camperId, catererId, today);
+            CamperCanReport camperCanReport = camperCanReportRepository.findCamperCanReport(camperId, catererId, false,today);
 
             if(camperCanReport != null) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean changeCamperCanReport(Long camperId, Long catererId) {
+        LocalDate today = LocalDate.now();
+        CamperCanReport camperCanReport = camperCanReportRepository.findCamperCanReport(camperId, catererId, false, today);
+
+        if(camperCanReport != null) {
+            camperCanReport.setReported(true);
+            camperCanReportRepository.save(camperCanReport);
+            return true;
         }
         return false;
     }

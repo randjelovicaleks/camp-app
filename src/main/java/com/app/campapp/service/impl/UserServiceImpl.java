@@ -1,6 +1,7 @@
 package com.app.campapp.service.impl;
 
 import com.app.campapp.enums.UserStatus;
+import com.app.campapp.enums.UserType;
 import com.app.campapp.model.*;
 import com.app.campapp.repository.*;
 import com.app.campapp.service.UserService;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
                 Calendar cal = Calendar.getInstance();
                 if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) >= 0) {
                     if (registrationRequest != null) {
-                        if (registrationRequest.getUserType().equals("CAMPER")) {
+                        if (registrationRequest.getUserType().equals(UserType.CAMPER)) {
                             Camper camper = new Camper();
                             camper.setName(registrationRequest.getName());
                             camper.setSurname(registrationRequest.getSurname());
@@ -63,16 +64,18 @@ public class UserServiceImpl implements UserService {
                             camper.setUserStatus(UserStatus.ACTIVE);
                             camperRepository.save(camper);
                             return true;
-                        } else {
+                        } else if (registrationRequest.getUserType().equals(UserType.CATERER)){
                             Caterer caterer = new Caterer();
                             caterer.setName(registrationRequest.getName());
                             caterer.setSurname(registrationRequest.getSurname());
                             caterer.setEmail(registrationRequest.getEmail());
                             caterer.setPassword(registrationRequest.getPassword());
+                            caterer.setPhoneNumber(registrationRequest.getPhoneNumber());
                             caterer.setEnabled(true);
                             List<Authority> auth = authorityService.findByRole("ROLE_CATERER");
                             caterer.setAuthorities(auth);
                             caterer.setUserStatus(UserStatus.ACTIVE);
+                            caterer.setNumberOfReports(0);
                             catererRepository.save(caterer);
                             return true;
                         }

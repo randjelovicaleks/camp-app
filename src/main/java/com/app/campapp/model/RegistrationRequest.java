@@ -27,6 +27,9 @@ public class RegistrationRequest {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     public RegistrationRequest() {
     }
 
@@ -37,6 +40,7 @@ public class RegistrationRequest {
         this.surname = registrationRequestDTO.getSurname();
         this.email = registrationRequestDTO.getEmail();
         this.password = registrationRequestDTO.getPassword();
+        this.phoneNumber = registrationRequestDTO.getPhoneNumber();
     }
 
     public Long getId() {
@@ -85,5 +89,13 @@ public class RegistrationRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegistrationController {
@@ -21,7 +23,7 @@ public class RegistrationController {
     private UserServiceImpl userServiceImpl;
 
     @PostMapping(value = "/registration")
-    public ResponseEntity<RegistrationRequestDTO> createRegistrationRequest(@RequestBody RegistrationRequestDTO registrationRequestDTO) {
+    public ResponseEntity<RegistrationRequestDTO> createRegistrationRequest(@Valid @RequestBody RegistrationRequestDTO registrationRequestDTO) {
 
         if (!userServiceImpl.emailExist(registrationRequestDTO.getEmail())) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -38,12 +40,4 @@ public class RegistrationController {
 
     }
 
-    @PutMapping(value = "/activate-account/request/{id}/{token}")
-    public ResponseEntity<?> activateAccount(@PathVariable Long id, @PathVariable String token) {
-        if (userServiceImpl.activateAccount(id, token)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
 }

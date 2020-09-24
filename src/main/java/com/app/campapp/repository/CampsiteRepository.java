@@ -13,4 +13,8 @@ public interface CampsiteRepository extends JpaRepository<Campsite, Long> {
 
     @Query(value = "SELECT * FROM campsite ORDER BY rating DESC LIMIT 3", nativeQuery = true)
     List<Campsite> bestRatedCampsites();
+
+    @Query(value = "SELECT campsite_id FROM sharing_campsites WHERE camper_id = ?1", nativeQuery = true)
+    List<Long> findSharedCampsitesById(Long idCamper);
+
 }

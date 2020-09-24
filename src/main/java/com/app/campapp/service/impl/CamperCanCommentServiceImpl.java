@@ -27,7 +27,6 @@ public class CamperCanCommentServiceImpl implements CamperCanCommentService {
         if (campsite != null) {
             LocalDate today = LocalDate.now();
             CamperCanComment camperCanComment = camperCanCommentRepository.findCampersCanComment(camperId, campsiteId, false, today);
-
             if(camperCanComment != null) {
                 return true;
             }
@@ -38,12 +37,10 @@ public class CamperCanCommentServiceImpl implements CamperCanCommentService {
     public boolean changeCamperCanComment(Long camperId, Long campsiteId) {
         LocalDate today = LocalDate.now();
         CamperCanComment camperCanComment = camperCanCommentRepository.findCampersCanComment(camperId, campsiteId, false, today);
-
-        if(camperCanComment != null) {
+        if (camperCanComment != null) {
             camperCanComment.setCommented(true);
             camperCanCommentRepository.save(camperCanComment);
             return true;
-
         }
         return false;
     }
@@ -59,7 +56,6 @@ public class CamperCanCommentServiceImpl implements CamperCanCommentService {
             camperCanComment.setReservationEndDate(reservationEndDate);
             camperCanCommentRepository.save(camperCanComment);
             return true;
-
         }
         return false;
     }

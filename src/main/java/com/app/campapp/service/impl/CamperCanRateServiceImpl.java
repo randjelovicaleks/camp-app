@@ -41,7 +41,6 @@ public class CamperCanRateServiceImpl implements CamperCanRateService {
             camperCanRate.setRated(true);
             camperCanRateRepository.save(camperCanRate);
             return true;
-
         }
         return false;
     }
@@ -57,7 +56,6 @@ public class CamperCanRateServiceImpl implements CamperCanRateService {
             camperCanRate.setReservationEndDate(reservationEndDate);
             camperCanRateRepository.save(camperCanRate);
             return true;
-
         }
         return false;
     }

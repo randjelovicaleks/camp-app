@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class CommentController {
 
     @PreAuthorize("hasRole('ROLE_CAMPER')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createComment(@RequestBody CommentDTO commentDTO) {
+    public ResponseEntity<?> createComment(@Valid @RequestBody CommentDTO commentDTO) {
         if (commentServiceImpl.createComment(commentDTO)) {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }

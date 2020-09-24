@@ -1,23 +1,43 @@
 package com.app.campapp.dto;
 
+import com.app.campapp.enums.ActivityType;
 import com.app.campapp.model.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CampsiteDTO {
 
     private Long id;
+
+    @NotBlank(message="Name must not be empty.")
+    @Pattern(regexp="[a-zA-Z ]+$", message="Name must not include special characters and numbers.")
     private String name;
+    @NotBlank(message="Description must not be empty.")
+    @Pattern(regexp="^[a-zA-Z0-9.,?! ]*$",
+            message="Description must contain only letters, digits and punctuation marks.")
     private String description;
+    @NotBlank(message="Nearest city must not be empty.")
+    @Pattern(regexp="[a-zA-Z ]+$", message="Nearest city must not include special characters and numbers.")
     private String nearestCity;
     private boolean closeToMountain;
     private boolean closeToRiver;
     private LocalDate openingDate;
     private LocalDate closingDate;
+    @NotNull
     private int tentSpotsNumber;
     private double longitude;
     private double latitude;
+    @NotNull
     private double pricePerDay;
     private double rating;
+    private CatererDTO catererDTO;
+    private List<ActivityType> activities;
+    private boolean visible;
+    private List<String> images;
 
     public CampsiteDTO() {
     }
@@ -36,6 +56,15 @@ public class CampsiteDTO {
         this.latitude = campsite.getLatitude();
         this.pricePerDay = campsite.getPricePerDay();
         this.rating = campsite.getRating();
+        this.catererDTO = new CatererDTO(campsite.getCaterer());
+        this.activities = campsite.getActivities();
+        this.visible = campsite.isVisible();
+        this.images = new ArrayList<>();
+        if(campsite.getImages() != null) {
+            for (Image image : campsite.getImages()) {
+                images.add(image.getImage());
+            }
+        }
     }
 
     public Long getId() {
@@ -140,5 +169,37 @@ public class CampsiteDTO {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public CatererDTO getCatererDTO() {
+        return catererDTO;
+    }
+
+    public void setCatererDTO(CatererDTO catererDTO) {
+        this.catererDTO = catererDTO;
+    }
+
+    public List<ActivityType> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<ActivityType> activities) {
+        this.activities = activities;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }
