@@ -1,6 +1,5 @@
 package com.app.campapp.service.impl;
 
-import com.app.campapp.dto.CatererDTO;
 import com.app.campapp.enums.ReservationType;
 import com.app.campapp.enums.UserStatus;
 import com.app.campapp.model.Campsite;
