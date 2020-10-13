@@ -1,34 +1,34 @@
 SET GLOBAL max_allowed_packet = 15000000;
 
 INSERT INTO user (type, enabled, name, surname, email, password) VALUES ('ADMIN', true, 'Admin', 'Admin', 'admin@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a');
-INSERT INTO user (type, enabled,  name, surname, email, password, user_status) VALUES ('CAMPER', true, 'Camper', 'Camper', 'camper@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE');
-INSERT INTO user (type, enabled,  name, surname, email, password, user_status, number_of_reports, phone_number) VALUES ('CATERER', true, 'Caterer', 'Caterer', 'caterer@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE', 0, '063/7521453');
+INSERT INTO user (type, enabled,  name, surname, email, password, user_status) VALUES ('CAMPER', true, 'Aksel', 'Nilsen', 'camper@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE');
+INSERT INTO user (type, enabled,  name, surname, email, password, user_status, number_of_reports, phone_number) VALUES ('CATERER', true, 'John', 'Doe', 'caterer@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE', 0, '063/7521453');
 INSERT INTO user (type, enabled,  name, surname, email, password, user_status) VALUES ('CAMPER', true, 'Camper1', 'Camper1', 'camper1@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE');
 INSERT INTO user (type, enabled,  name, surname, email, password, user_status, number_of_reports, phone_number) VALUES ('CATERER', true, 'Caterer1', 'Caterer1', 'caterer1@mail.com','$2a$10$aMBAEXjwqcavdNT373EM7.hlk2MWp1SNYCZ5NWk/Dytyf/xPsI02a','ACTIVE', 3, '063/7521453');
 
 INSERT INTO campsite (name, description, nearest_city, close_to_mountain, close_to_river, opening_date, closing_date, tent_spots_number, longitude, latitude, price_per_day, rating, caterer_id, visible)
-VALUES ('Mesto za kampovanje 1', 'Neki opis', 'Novi Sad', true, false, '2020-08-04 00:00:00', '2020-10-31 00:00:00', 5, 19.7265045, 45.1546175, 25, 4.5, 3, true);
+VALUES ('Oasis', 'Neki opis', 'Novi Sad', true, false, '2020-08-04 00:00:00', '2020-10-31 00:00:00', 5, 19.6655357, 45.1631531, 25, 4.5, 3, true);
 
 INSERT INTO campsite (name, description, nearest_city, close_to_mountain, close_to_river, opening_date, closing_date, tent_spots_number, longitude, latitude, price_per_day, rating, caterer_id, visible)
-VALUES ('Mesto za kampovanje 2', 'Neki opis', 'Novi Sad', true, true, '2020-07-04 00:00:00', '2020-10-31 00:00:00', 5, 19.7265045, 45.1546175, 35, 3.5, 3, true);
+VALUES ('New Forest', 'New Forest is camping spot in Fruska gora', 'Novi Sad', true, true, '2020-07-04 00:00:00', '2020-10-31 00:00:00', 5, 19.6655357, 45.1631531, 35, 3.5, 3, true);
 
 INSERT INTO campsite (name, description, nearest_city, close_to_mountain, close_to_river, opening_date, closing_date, tent_spots_number, longitude, latitude, price_per_day, rating, caterer_id, visible)
-VALUES ('Mesto za kampovanje 3', 'Neki opis', 'Novi Sad', true, true, '2020-09-04 00:00:00', '2020-10-20 00:00:00', 5, 19.7265045, 45.1546175, 20, 4.8, 3, true);
+VALUES ('WoodLand', 'Neki opis', 'Novi Sad', true, true, '2020-09-04 00:00:00', '2020-10-20 00:00:00', 5, 19.7265045, 45.1546175, 20, 4.8, 3, true);
 
 INSERT INTO campsite (name, description, nearest_city, close_to_mountain, close_to_river, opening_date, closing_date, tent_spots_number, longitude, latitude, price_per_day, rating, caterer_id, visible)
-VALUES ('Mesto za kampovanje 4', 'Neki opis', 'Beograd', true, true, '2020-09-20 00:00:00', '2020-10-31 00:00:00', 5, 19.7265045, 45.1546175, 25, 2.5, 5, true);
+VALUES ('Campspot', 'Neki opis', 'Beograd', true, true, '2020-09-20 00:00:00', '2020-10-31 00:00:00', 5, 19.7265045, 45.1546175, 25, 2.5, 5, true);
 
 INSERT INTO campsite (name, description, nearest_city, close_to_mountain, close_to_river, opening_date, closing_date, tent_spots_number, longitude, latitude, price_per_day, rating, caterer_id, visible)
-VALUES ('Mesto za kampovanje 5', 'Neki opis', 'Beograd', true, false, '2020-09-25 00:00:00', '2020-10-31 00:00:00', 5, 19.7265045, 45.1546175, 35, 1.8, 5, true);
+VALUES ('Blue lake', 'Neki opis', 'Beograd', true, false, '2020-09-25 00:00:00', '2020-10-31 00:00:00', 5, 19.7265045, 45.1546175, 35, 1.8, 5, true);
 
 INSERT INTO reply (content, posting_date, caterer_id, campsite_id) VALUES ('Hvala','2020-09-04 00:00:00',3,1);
-INSERT INTO reply (content, posting_date, caterer_id, campsite_id) VALUES ('Hvala','2020-09-04 00:00:00',3,2);
+INSERT INTO reply (content, posting_date, caterer_id, campsite_id) VALUES ('Thank you very much.','2020-09-04 00:00:00',3,2);
 INSERT INTO reply (content, posting_date, caterer_id, campsite_id) VALUES ('Hvala','2020-09-04 00:00:00',3,3);
 INSERT INTO reply (content, posting_date, caterer_id, campsite_id) VALUES ('Hvala','2020-09-25 00:00:00',5,4);
 INSERT INTO reply (content, posting_date, caterer_id, campsite_id) VALUES ('Hvala','2020-09-29 00:00:00',5,5);
 
 INSERT INTO comment (content, posting_date, camper_id, campsite_id, reply_id) VALUES ('Mesto je odlicno','2020-09-04 00:00:00',2,1,1);
-INSERT INTO comment (content, posting_date, camper_id, campsite_id, reply_id) VALUES ('Mesto je odlicno','2020-09-04 00:00:00',2,2,2);
+INSERT INTO comment (content, posting_date, camper_id, campsite_id, reply_id) VALUES ('This campsite is the best.','2020-09-04 00:00:00',2,2,2);
 INSERT INTO comment (content, posting_date, camper_id, campsite_id, reply_id) VALUES ('Mesto je odlicno','2020-09-04 00:00:00',2,3,3);
 INSERT INTO comment (content, posting_date, camper_id, campsite_id, reply_id) VALUES ('Mesto je odlicno','2020-09-25 00:00:00',2,4,4);
 INSERT INTO comment (content, posting_date, camper_id, campsite_id, reply_id) VALUES ('Mesto je odlicno','2020-09-29 00:00:00',2,5,5);

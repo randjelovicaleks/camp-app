@@ -9,6 +9,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //base64
     @Lob
     private String image;
 
